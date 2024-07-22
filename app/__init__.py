@@ -7,9 +7,16 @@ from aiogram.types import Message
 from aiogram.utils.markdown import hbold
 from aiogram.client.default import DefaultBotProperties
 
+from .router import film_router
+
+
+
 load_dotenv()
 
+
 root_router = Router()
+root_router.include_routers(film_router,)
+
 
 @root_router.message(CommandStart())
 async def command_start_handler(message: Message) -> None:
@@ -23,6 +30,3 @@ async def main() -> None:
     dp = Dispatcher()
     dp.include_router(root_router)
     await dp.start_polling(bot)
-
-import asyncio
-asyncio.run(main())
